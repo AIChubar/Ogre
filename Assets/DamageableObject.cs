@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 /// <summary>
 /// Script that is attached to any enemy or object that can do damage.
 /// </summary>
-[RequireComponent(typeof(Collider2D))]
+[RequireComponent(typeof(Collider))]
 public class DamageableObject : MonoBehaviour
 {
     [Tooltip("Base object damage")]
