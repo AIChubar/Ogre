@@ -6,13 +6,17 @@ using UnityEngine.UI;
 public class CharHealthBar : MonoBehaviour
 {
     [Tooltip("Health bar slider")]
-    [SerializeField]
     private Slider slider;
 
     private HealthSystem healthSystem;
 
     private float defaultHealth;
     
+    void Awake()
+    {
+        slider = GetComponent<Slider>();
+    }
+
     void Start()
     {
         healthSystem = GameManager.gameManager.Character.healthSystem;

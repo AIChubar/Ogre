@@ -42,6 +42,9 @@ public class PlayerStats : MonoBehaviour//, /IDataPersistence
     [Tooltip("Initial movement speed")]
     [SerializeField] public CharacterStat MovementSpeed;
 
+    [Tooltip("Initial damage delay")]
+    [SerializeField] public CharacterStat DamageDelay;
+
     [HideInInspector]
     public HealthSystem healthSystem;
     void Start()
@@ -50,6 +53,7 @@ public class PlayerStats : MonoBehaviour//, /IDataPersistence
         Damage.AddModifier(new StatModifier(0.35f*statLevels.Damage, StatModType.PercentAdd));
         MissileSpeed.AddModifier(new StatModifier(0.18f*statLevels.MissileSpeed, StatModType.PercentAdd));
         MovementSpeed.AddModifier(new StatModifier(0.12f*statLevels.MovementSpeed, StatModType.PercentAdd));
+        DamageDelay.AddModifier(new StatModifier(0.12f*statLevels.DamageDelay, StatModType.PercentAdd));
         for (int i = 0; i < statLevels.ShootingDelay; i++)
         {
             ShootingDelay.AddModifier(new StatModifier(-0.09f, StatModType.PercentMult));
@@ -84,7 +88,7 @@ public class StatLevels
     public int ShootingDelay;
     public int MissileSpeed;
     public int MovementSpeed;
-
+    public int DamageDelay;
     
     public StatLevels()
     {
