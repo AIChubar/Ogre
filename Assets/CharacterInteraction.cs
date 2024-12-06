@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class CharacterInteraction : MonoBehaviour
 {
-    private Vector2 movement;
+    //private Vector2 movement;
     private bool damageAnimation = false;
     private bool colliding = false;
 
@@ -33,8 +33,8 @@ public class CharacterInteraction : MonoBehaviour
                 colliding = false;
                 //GameManager.gameManager.PauseMenu.GameOver();
                 GetComponent<Collider>().enabled = false;
-                movement.x = 0;
-                movement.y = 0;
+                //movement.x = 0;
+                //movement.y = 0;
                 return;
             }
             
@@ -45,7 +45,7 @@ public class CharacterInteraction : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.TryGetComponent<DamageableObject>(out var collidingObject))
+        if ((other.gameObject.CompareTag("Enemy") || other.gameObject.CompareTag("EnemyAttack")) && other.gameObject.TryGetComponent<DamageableObject>(out var collidingObject))
         {
             colliding = true;
             collidingObjects.Add(collidingObject);
@@ -56,15 +56,15 @@ public class CharacterInteraction : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         
-        if (collision.gameObject.TryGetComponent<DamageableObject>(out var collidingObject) && !colliding && !damageAnimation)
+        if ((collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("EnemyAttack")) && collision.gameObject.TryGetComponent<DamageableObject>(out var collidingObject) && !colliding && !damageAnimation)
         {
             if (!GameManager.gameManager.Character.healthSystem.Damage(collidingObject.damage))
             {
                 colliding = false;
                 //GameManager.gameManager.PauseMenu.GameOver();
                 GetComponent<Collider>().enabled = false;
-                movement.x = 0;
-                movement.y = 0;
+                //movement.x = 0;
+                //movement.y = 0;
                 return;
             }
             StartCoroutine(DamageReceived(GameManager.gameManager.Character.DamageDelay.Value));
@@ -72,7 +72,7 @@ public class CharacterInteraction : MonoBehaviour
     }
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.TryGetComponent<DamageableObject>(out var collidingObject))
+        if ((other.gameObject.CompareTag("Enemy") || other.gameObject.CompareTag("EnemyAttack")) && other.gameObject.TryGetComponent<DamageableObject>(out var collidingObject))
         {
             collidingObjects.Remove(collidingObject);
             if (collidingObjects.Count == 0)
