@@ -69,7 +69,7 @@ public class KillableEnemy : MonoBehaviour
     {
         if (healthSystem.Health == 0 || OneShotEnemy)
         {
-            StartCoroutine(DeathAnimation(0.03f));
+            StartCoroutine(DeathAnimation(0.5f));
         }
         else
         {
@@ -97,7 +97,7 @@ public class KillableEnemy : MonoBehaviour
     
     private IEnumerator DeathAnimation(float duration)
     {
-        gameObject.GetComponent<Collider2D>().enabled = false;
+        gameObject.GetComponent<Collider>().enabled = false;
         for (float t = 0; t < 1; t += Time.deltaTime/duration)
         {
             sprite.color = new Color(1, 1, 1, Mathf.SmoothStep(1, 0, t));

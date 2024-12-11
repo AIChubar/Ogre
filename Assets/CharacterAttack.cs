@@ -56,10 +56,19 @@ public class CharacterAttack : MonoBehaviour
         {
             float rotationStep = totalRotation * Time.deltaTime / rotationTime;
             attackObject.transform.Rotate(Vector3.up, rotationStep, Space.World); // Rotate around y-axis in global space
+
+            float scale = Mathf.SmoothStep(1, 7, elapsedTime / rotationTime); // Simple smooth start and smooth end
+            attackObject.transform.localScale = new Vector3(scale, scale, scale);
+
             elapsedTime += Time.deltaTime;
             yield return null;
         }
+        Vector3 localPosition = attackObject.transform.localPosition;
+        localPosition.x = 0;
+        localPosition.z = 0;
+        attackObject.transform.localPosition = localPosition;
         attackObject.transform.rotation = initialRotation; // Reset to initial rotation
+        attackObject.transform.localScale = new Vector3(1, 1, 1); // Reset to initial scale
         attackObject.SetActive(false);
     }
 }
